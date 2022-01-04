@@ -48,7 +48,7 @@ services:
       - ./config:/app/config:z
       - ./note_taking:/app/note_taking:z
     ports:
-      - "7000:7000"
+      - "6000:6000"
     command: /start-docs
 
   mailhog:
