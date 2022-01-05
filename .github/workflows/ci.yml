@@ -7,10 +7,10 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.DJANGO_AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.DJANGO_AWS_SECRET_ACCESS_KEY }}
   AWS_REGION: us-east-1
-  AWS_ACCOUNT_NUMBER: "446600442784"
+  # AWS_ACCOUNT_NUMBER: 446600442784
   ECR_REPOSITORY: my-cool-application
   IMAGE_TAG: ${{ github.sha }}
-  ECR_URI: ${{ AWS_ACCOUNT_NUMBER }}.dkr.ecr.us-east-1.amazonaws.com/${{ ECR_REPOSITORY }}
+  ECR_URI: 446600442784.dkr.ecr.us-east-1.amazonaws.com/my-cool-application
   EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
   BUCKET_NAME: ${{ secrets.DJANGO_AWS_STORAGE_BUCKET_NAME }}
   DJANGO_ADMIN_URL: ${{ secrets.DJANGO_ADMIN_URL }}
