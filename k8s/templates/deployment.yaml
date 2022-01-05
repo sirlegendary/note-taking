@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    domain: app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      domain: app
+  template:
+    metadata:
+      name: app-template
+      labels:
+        domain: app
+    spec:
+      containers:
+        - name: app-image
+          image: {{.Values.image}}
+          imagePullPolicy: Always
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  key: user
+                  name: appsecrets
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  key: name
+                  name: appsecrets
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: appsecrets
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: host
+                  name: appsecrets
+            - name: DB_PORT
+              value: "5432"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: access_key
+                  name: appsecrets
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: secret_key
+                  name: appsecrets
+            - name: AWS_STORAGE_BUCKET_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: bucket
+                  name: appsecrets
+            - name: USE_S3
+              value: "TRUE"
+          ports:
+            - containerPort: 8000
