@@ -134,10 +134,11 @@ jobs:
       - name: Get active Nodes
         run: kubectl get nodes
       
-      - name: Install/Setup ArgoCD
-        run: |
-          helm repo add argo https://argoproj.github.io/argo-helm
-          helm install argocd argo/argo-cd --set server.service.type=LoadBalancer
+      # - name: Install/Setup ArgoCD
+      #   run: |
+      #     helm repo add argo https://argoproj.github.io/argo-helm
+      #     helm install argocd argo/argo-cd --set server.service.type=LoadBalancer
+
 
 
 
