@@ -1,8 +1,12 @@
-image: custom-value
-user: custom-value
-password: custom-value
-host: custom-value
-name: custom-value
-access_key: custom-value
-secret_key: custom-value
-bucket: custom-value
+image:
+  pullPolicy: IfNotPresent
+  repository: 689418509725.dkr.ecr.us-east-1.amazonaws.com/my-cool-application
+  version: 4879464565e1287fc4384730c480bca6d3dbd145
+
+# user: custom-value
+# password: custom-value
+# host: custom-value
+# name: custom-value
+# access_key: custom-value
+# secret_key: custom-value
+# bucket: custom-value

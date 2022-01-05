@@ -139,6 +139,17 @@ jobs:
       - name: Check Repo Location
         run: echo ${{ steps.repo.outputs.repo_name }} # checking our repo location
       
+      - name: Update Version
+        run: |
+            version=$(cat ./k8s/values.yaml | grep version: | awk '{print $2}')
+            sed -i "s/$version/$IMAGE_TAG/" ./k8s/values.yaml
+          
+      - name: Commit and push changes
+        uses: devops-infra/action-commit-push@v0.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: Version updated
+      
       # - name: Install Helm # helm installation in our runner for deploying.
       #   run: |
       #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
