@@ -36,10 +36,7 @@ spec:
                   key: password
                   name: appsecrets
             - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: host
-                  name: appsecrets
+              value: "postgres"
             - name: DB_PORT
               value: "5432"
             - name: DJANGO_AWS_ACCESS_KEY_ID
