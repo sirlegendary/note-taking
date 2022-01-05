@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: 689418509725.dkr.ecr.us-east-1.amazonaws.com/my-cool-application:635c0c28434446637837b73b508b260688850033
+          image: 689418509725.dkr.ecr.us-east-1.amazonaws.com/my-cool-application:b61f14fecfbf189a6a70b2c705c332065310395b
           imagePullPolicy: Always
           env:
             - name: POSTGRES_USER
