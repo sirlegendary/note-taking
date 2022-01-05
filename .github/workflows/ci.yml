@@ -98,19 +98,7 @@ jobs:
         env:                                                                                                          
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}  
         run: |
-          docker build \
-            --build-arg POSTGRES_HOST=${{ env.POSTGRES_HOST }} \
-            --build-arg POSTGRES_PORT=5432 --build-arg POSTGRES_DB=${{ env.POSTGRES_DB }} \
-            --build-arg POSTGRES_USER=${{ env.POSTGRES_USER }} \
-            --build-arg POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} \
-            --build-arg DJANGO_AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} \
-            --build-arg DJANGO_AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }} \
-            --build-arg DJANGO_AWS_STORAGE_BUCKET_NAME=${{ env.DJANGO_AWS_STORAGE_BUCKET_NAME }} \
-            --build-arg DJANGO_SECRET_KEY=${{ env.DJANGO_SECRET_KEY }} \
-            --build-arg DJANGO_ADMIN_URL=${{ env.DJANGO_ADMIN_URL }} \
-            --build-arg DJANGO_ALLOWED_HOSTS=${{ env.DJANGO_ALLOWED_HOSTS }} \
-            -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG \
-            -f ./compose/production/django/Dockerfile .
+          docker build -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -f ./compose/production/django/Dockerfile .
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG"
@@ -151,23 +139,18 @@ jobs:
       - name: Check Repo Location
         run: echo ${{ steps.repo.outputs.repo_name }} # checking our repo location
       
-      - name: Install Helm # helm installation in our runner for deploying.
-        run: |
-          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-          chmod 700 get_helm.sh
-          ./get_helm.sh
+      # - name: Install Helm # helm installation in our runner for deploying.
+      #   run: |
+      #     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+      #     chmod 700 get_helm.sh
+      #     ./get_helm.sh
       
-      - name: Connect to kubernetes cluster
-        run: |
-          aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER }}
+      # - name: Connect to kubernetes cluster
+      #   run: |
+      #     aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER }}
       
-      - name: Get active Nodes
-        run: kubectl get nodes
-      
-      - name: Install/Setup ArgoCD
-        run: |
-          helm repo add argo https://argoproj.github.io/argo-helm
-          helm install argocd argo/argo-cd --set server.service.type=LoadBalancer
+      # - name: Get active Nodes
+      #   run: kubectl get nodes
 
 
 
