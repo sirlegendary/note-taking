@@ -57,6 +57,9 @@ With MailHog running, to view messages that are sent by your application, open y
 ## Deployment
 
 The following details how to deploy this application.
+    Install/Setup ArgoCD
+    $ helm repo add argo https://argoproj.github.io/argo-helm
+    $ helm install argocd argo/argo-cd --set server.service.type=LoadBalancer
 
 ### Docker
 
