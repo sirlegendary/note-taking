@@ -52,31 +52,31 @@ jobs:
   #     - name: Run pre-commit
   #       uses: pre-commit/action@v2.0.3
 
-  # With no caching at all the entire ci process takes 4m 30s to complete!
-  health-check-job:
-    runs-on: ubuntu-latest
+  # # With no caching at all the entire ci process takes 4m 30s to complete!
+  # health-check-job:
+  #   runs-on: ubuntu-latest
 
-    steps:
+  #   steps:
 
-      - name: Checkout Code Repository
-        uses: actions/checkout@v2
+  #     - name: Checkout Code Repository
+  #       uses: actions/checkout@v2
 
-      - name: Build the Stack
-        run:  docker-compose -f local.yml build
+  #     - name: Build the Stack
+  #       run:  docker-compose -f local.yml build
 
-      - name: Run DB Migrations
-        run:  docker-compose -f local.yml run --rm django python manage.py migrate
+  #     - name: Run DB Migrations
+  #       run:  docker-compose -f local.yml run --rm django python manage.py migrate
 
-      - name: Run Django Tests
-        run:  docker-compose -f local.yml run django pytest
+  #     - name: Run Django Tests
+  #       run:  docker-compose -f local.yml run django pytest
 
-      - name: Tear down the Stack
-        run:  docker-compose -f local.yml down
+  #     - name: Tear down the Stack
+  #       run:  docker-compose -f local.yml down
   
   # package job for building and publishing docker images
   package-job: 
     runs-on: ubuntu-latest
-    needs: [health-check-job] # will be fired if and only if health-check-job is passed.
+    # needs: [health-check-job] # will be fired if and only if health-check-job is passed.
     if: ${{ github.event_name == 'push' }} # will be fired if the trigger event is a push event.
     
     steps:
@@ -133,6 +133,11 @@ jobs:
       
       - name: Get active Nodes
         run: kubectl get nodes
+      
+      - name: Install/Setup ArgoCD
+        run: |
+          helm repo add argo https://argoproj.github.io/argo-helm
+          helm install argocd argo/argo-cd --set server.service.type=LoadBalancer
 
 
 
