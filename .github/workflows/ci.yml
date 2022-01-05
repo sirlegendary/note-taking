@@ -93,18 +93,34 @@ jobs:
         id: login-ecr                        
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: WHere am i
-        run: pwd
-
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image                                                                                      
         env:                                                                                                          
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}  
         run: |
-          docker build -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -f ./compose/production/django/Dockerfile .
+          docker build \
+            --build-arg POSTGRES_HOST=${{ env.POSTGRES_HOST }} \
+            --build-arg POSTGRES_PORT=5432 --build-arg POSTGRES_DB=${{ env.POSTGRES_DB }} \
+            --build-arg POSTGRES_USER=${{ env.POSTGRES_USER }} \
+            --build-arg POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }} \
+            --build-arg DJANGO_AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }} \
+            --build-arg DJANGO_AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }} \
+            --build-arg DJANGO_AWS_STORAGE_BUCKET_NAME=${{ env.DJANGO_AWS_STORAGE_BUCKET_NAME }} \
+            --build-arg DJANGO_SECRET_KEY=${{ env.DJANGO_SECRET_KEY }} \
+            --build-arg DJANGO_ADMIN_URL=${{ env.DJANGO_ADMIN_URL }} \
+            --build-arg DJANGO_ALLOWED_HOSTS=${{ env.DJANGO_ALLOWED_HOSTS }} \
+            -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG \
+            -f ./compose/production/django/Dockerfile .
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG"
+      
+      - name: Set Repo Location # steps required to find the image id of our image from contiainer registry
+        id: repo
+        run: echo "::set-output name=repo_name::${{ env.ECR_URI }}${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" # we are setting the image location as output to be used in later step
+      
+      - name: Check Repo Location
+        run: echo ${{ steps.repo.outputs.repo_name }} # checking our repo location
       
       # - name: Update Version
       #   run: |

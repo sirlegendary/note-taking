@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: app-image
-          image: {{.Values.image}}
+          image: my-cool-application:9c7fb02ba1a22b3423ff482f5f5ada1186ec00e0
           imagePullPolicy: Always
           # env:
           #   - name: POSTGRES_USER
