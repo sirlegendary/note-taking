@@ -140,8 +140,8 @@ jobs:
       
       - name: Update Version
         run: |
-            version=$(cat ./k8s/templates/values.yaml | grep version: | awk '{print $2}')
-            sed -i "s/$version/$IMAGE_TAG/" ./k8s/templates/values.yaml
+            version=$(cat ./k8s/values.yaml | grep version: | awk '{print $2}')
+            sed -i "s/$version/$IMAGE_TAG/" ./k8s/values.yaml
           
       - name: Commit and push changes
         uses: devops-infra/action-commit-push@v0.3
