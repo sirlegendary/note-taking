@@ -1,15 +1,18 @@
-# # argocd
-# project: default
-# source:
-#   repoURL: 'https://github.com/sirlegendary/note-taking.git'
-#   path: k8s
-#   targetRevision: HEAD
-# destination:
-#   server: 'https://kubernetes.default.svc'
-#   namespace: default
-# syncPolicy:
-#   automated:
-#     selfHeal: true
-#   syncOptions:
-#     - CreateNamespace=true
-#     - ApplyOutOfSyncOnly=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: note-taking
+# spec:
+#   destination:
+#     name: ''
+#     namespace: default
+#     server: 'https://kubernetes.default.svc'
+#   source:
+#     path: k8s
+#     repoURL: 'https://github.com/sirlegendary/note-taking.git'
+#     targetRevision: HEAD
+#   project: default
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

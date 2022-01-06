@@ -9,7 +9,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: my-cool-application
   IMAGE_TAG: ${{ github.sha }}
-  ECR_URI: 611493525058.dkr.ecr.us-east-1.amazonaws.com/my-cool-application
+  ECR_URI: 814560518754.dkr.ecr.us-east-1.amazonaws.com/my-cool-application
   EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
   BUCKET_NAME: ${{ secrets.DJANGO_AWS_STORAGE_BUCKET_NAME }}
   DJANGO_ADMIN_URL: ${{ secrets.DJANGO_ADMIN_URL }}

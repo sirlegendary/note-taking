@@ -161,6 +161,13 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
+        'applogfile': {
+        'level':'DEBUG',
+        'class':'logging.handlers.RotatingFileHandler',
+        'filename': ROOT_DIR / "note_taking.log",
+        'maxBytes': 1024*1024*15, # 15MB
+        'backupCount': 10,
+    },
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
@@ -173,6 +180,10 @@ LOGGING = {
             "level": "ERROR",
             "handlers": ["console", "mail_admins"],
             "propagate": True,
+        },
+        'note-taking': {
+            'handlers': ['applogfile',],
+            'level': 'DEBUG',
         },
     },
 }
