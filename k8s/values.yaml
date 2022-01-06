@@ -1,7 +1,7 @@
 image:
   pullPolicy: IfNotPresent
   repository: 689418509725.dkr.ecr.us-east-1.amazonaws.com/my-cool-application
-  version: d9be9d02df87c846054c8e32c5c12f7f4af387e3
+  version: b9ff3c26fad92349ddc3de6e0470ae510656fa84
 
 # user: custom-value
 # password: custom-value
