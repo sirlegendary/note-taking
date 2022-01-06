@@ -16,7 +16,7 @@ spec:
         domain: app
     spec:
       containers:
-        - name: app-image
+        - name: {{ .Chart.Name }}
           image: "611493525058.dkr.ecr.us-east-1.amazonaws.com/my-cool-application:"{{ .Values.image.version }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
