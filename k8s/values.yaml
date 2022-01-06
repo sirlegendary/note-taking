@@ -1,7 +1,7 @@
 image:
   pullPolicy: IfNotPresent
   repository: 814560518754.dkr.ecr.us-east-1.amazonaws.com
-  version: 3ce3554a7d3daf8a94c72f71fd1cffe594612b3c
+  version: 53f7283db76f826fc1b44e56c112e86d92508896
 
 # user: custom-value
 # password: custom-value
