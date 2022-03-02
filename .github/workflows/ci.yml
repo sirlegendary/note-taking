@@ -39,7 +39,7 @@ jobs:
   #   steps:
 
   #     - name: Checkout Code Repository
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
 
   #     - name: Set up Python
   #       uses: actions/setup-python@v2
@@ -57,7 +57,7 @@ jobs:
   #   steps:
 
   #     - name: Checkout Code Repository
-  #       uses: actions/checkout@v2
+  #       uses: actions/checkout@v3
 
   #     - name: Build the Stack
   #       run:  docker-compose -f local.yml build
@@ -79,7 +79,7 @@ jobs:
     
     steps:
       - name: Checkout Code # checking out code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -129,7 +129,7 @@ jobs:
     
     steps:
       - name: Checkout code # checking out code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Set Repo Location # steps required to find the image id of our image from contiainer registry
         id: repo
