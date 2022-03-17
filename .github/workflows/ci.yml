@@ -116,7 +116,7 @@ jobs:
       #       sed -i "s/$version/${GITHUB_REF##*/}-$git_hash/" ./charts/helm-example/values.yaml
           
       # - name: Commit and push changes
-      #   uses: devops-infra/action-commit-push@v0.3
+      #   uses: devops-infra/action-commit-push@v0.8.4
       #   with:
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
       #     commit_message: Version updated
@@ -144,7 +144,7 @@ jobs:
             sed -i "s/$version/$IMAGE_TAG/" ./k8s/values.yaml
           
       - name: Commit and push changes
-        uses: devops-infra/action-commit-push@v0.3
+        uses: devops-infra/action-commit-push@v0.8.4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: Version updated
